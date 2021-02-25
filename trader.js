@@ -27,9 +27,7 @@ let minimums = {}
 
 //////////////////////////////////////////////////////////////////////////////////
 
-const margin_pairs = ['ADABTC', 'ATOMBTC','BATBTC','BCHBTC','BNBBTC','DASHBTC','EOSBTC','ETCBTC',
-    'ETHBTC','IOSTBTC','IOTABTC','LINKBTC','LTCBTC','MATICBTC','NEOBTC','ONTBTC','QTUMBTC',
-    'RVNBTC','TRXBTC','VETBTC','XLMBTC','XMRBTC','XRPBTC','XTZBTC','ZECBTC']
+let margin_pairs = []
 
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -520,6 +518,9 @@ async function ExchangeInfo() {
                 filters.orderTypes = obj.orderTypes;
                 filters.icebergAllowed = obj.icebergAllowed;
                 minimums[obj.symbol] = filters;
+                if ( obj.isMarginTradingAllowed && obj.quoteAsset == "BTC" ) {
+                    margin_pairs.push( obj.symbol )
+                }
             }
             resolve(true)
         })
